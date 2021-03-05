@@ -56,7 +56,8 @@ class SignInDemoState extends State<SignInDemo> {
       _contactText = 'Loading contact info...';
     });
 
-    final peopleApi = PeopleApi(await _googleSignIn.authenticatedClient());
+    final peopleApi =
+        PeopleServiceApi(await _googleSignIn.authenticatedClient());
     final response = await peopleApi.people.connections.list(
       'people/me',
       personFields: 'names',
@@ -111,11 +112,11 @@ class SignInDemoState extends State<SignInDemo> {
           ),
           const Text('Signed in successfully.'),
           Text(_contactText ?? ''),
-          RaisedButton(
+          ElevatedButton(
             child: const Text('SIGN OUT'),
             onPressed: _handleSignOut,
           ),
-          RaisedButton(
+          ElevatedButton(
             child: const Text('REFRESH'),
             onPressed: _handleGetContact,
           ),
@@ -126,7 +127,7 @@ class SignInDemoState extends State<SignInDemo> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           const Text('You are not currently signed in.'),
-          RaisedButton(
+          ElevatedButton(
             child: const Text('SIGN IN'),
             onPressed: _handleSignIn,
           ),
