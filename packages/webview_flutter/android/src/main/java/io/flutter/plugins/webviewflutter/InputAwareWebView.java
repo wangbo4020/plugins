@@ -185,7 +185,11 @@ final class InputAwareWebView extends WebView {
             // onCreateInputConnection() on targetView on the same thread as
             // targetView.getHandler(). It will also call subsequent InputConnection methods on this
             // thread. This is the IME thread in cases where targetView is our proxyAdapterView.
-            imm.isActive(containerView);
+            try {// https://github.com/flutter/flutter/issues/80717
+              imm.isActive(containerView);
+            } catch (Exception e) {
+              Log.w(TAG, "InputMethodManager.isActive", e);
+            }
           }
         });
   }
